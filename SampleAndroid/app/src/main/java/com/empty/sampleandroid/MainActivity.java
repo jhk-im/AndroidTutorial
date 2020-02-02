@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 현재 java 클래스는 activity_login.xml 과 연결되어 있다.
         setContentView(R.layout.activity_login);
 
         // activity_login 에서 실제 EditText 와 버튼 을 담아준다.
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         // text 를 검사하여 일치할 때만 클릭 이벤트를 진행한다.
         // setClickable() -> 버튼 사용할 수 있는지 없는지 구분 -> 시각적효과
         // setEnabled() -> 버튼 객체를 활성화 / 비활성화 구분
+
+        // login 버튼이 constraintLayout 으로 되어있다.
+        // 그렇기 때문에 클릭할 수 있음을 사용자가 알 수 있도록 시각적 효과를 준다.
         constraintLayout_login.setClickable(true);
         // constraintLayout_login.setEnabled(true);
         // addTextChangedListener() -> EditText 의 변화 감지하는 메소드
