@@ -1,0 +1,12 @@
+프로가드_3 
+
+안드로이드를 배포 할때 개발시 Debug용으로 컴파일 하다가 배포할 때는 Release 용으로 apk를 만들게 된다. 
+배포를 하다보면 Debug 버전에 문제가 없더라도 Release 버전으로 배포했을 때 문제가 터질 수 있다. 
+그렇기 때문에 최종 배포 전에 Release 용으로 apk를 뽑아 테스트 해봐야한다. 
+
+// Release 로 컴파일 하기 
+몇가지 설정을 통해 Release 로 컴파일할 수 있는 방법이 있다. 
+
+1.배포시 필요한 Keystore 파일을 app 폴더안에 넣어준다. 
+
+https://black-jin0427.tistory.com/187

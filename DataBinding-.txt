@@ -1,0 +1,70 @@
+https://gun0912.tistory.com/71
+
+//DataBinding
+
+1. 데이터 바인딩을 사용하면 findViewById() 안해도 자동으로 xml에 만든 뷰를 만들어준다.
+2. RecyclerView 에서 각각의 item을 set 해주는 작업도 xml에서 다 써주면 알아서 값이 들어간다. 
+3. 값이 바뀌면 알아서 바뀐 값으로 View를 변경하게 할수있다.
+
+//최소사항
+- Android 2.1 (api 레벨 7 )이상
+- Android Plugin for Gradle 1.5.0-alpha1 이상
+- Android Studio 1.3 이상
+
+//설정
+
+build.gradle(Module:app)
+android {
+dataBinding {
+	enabled = true
+}
+}
+
+//XML
+Databinding을 사용하기 위해서는 xml의 최상위에 <layout> 태그를 감싸준다. 
+
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+<!--
+...
+-->
+</LinearLayout>
+</layout>
+
+//java
+activity 에서 항상 해주던 setContentView() 대신 DataBindingUtil.setContentView() 를 이용해 layout xml을 만들어준다. 
+
+DatabindingActivityBinding binding;
+binding = DataBindingUtil.setContentView(this, R.layout.databinding_activity);
+binding.setActivity(this);
+
+xml의 파일 이름을 기준으로 XXXBinding 클래스가 새로 생성된다.
+여기서는 xml의 이름이 Databinding_activity.xml 이기 때문에 자동으로 클래스가 새로 생성되었다. 
+Binding 클래스의 이름은 파스칼 표기법으로 자동으로 변경된다.
+ex) main_activity -> MainActivityBinding
+
+binding. -> 뷰를 사용할 수 있다. 
+
+*Click event
+
+
+//버터나이프
+버터나이프에서는 @OnClick(R.id.xxx)만 함수에 넣어주면 클릭이벤트가 완성된다. 
+
+//데이터바인딩
+<Button
+android:id="@+id/btnSample"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:onClick="@{activity::onButtonClick}"
+android:text="button"
+/>
+
+xml 에서 클릭되면 실행하고자 하는 함수를 지정해준다. 
+activity라는 곳에 onButtonClick 을 실행하도록 설정해 두었다. 
+

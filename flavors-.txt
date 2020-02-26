@@ -1,0 +1,100 @@
+https://superwony.tistory.com/58
+
+Flavors 
+
+// 개발중인 프로젝트 테스트과정에서 다수의 apk를 배포해야할 경우가 있다. 
+그런경우 필드값이나 flag 값을 변경해서 업데이트 후 테스트 진행하였었는데 
+Flavors를 사용하면 더 간편하게 빌드할 수 있다. 
+
+// buildTypes
+
+buildTypes {
+    release {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+
+release 와 debug 두가지의 빌드버전이 있다. 
+
+// productFlavors 활용
+빌드 타입과는 다른 제품 버전을 설정할 수 있다. 
+제품 버전별 설정값을 다르게 해서 똑같은 다수의 앱을 빌드할 수 있다. 
+예를들어 광고유무 필드를 다르게 설정해 있는버전과 없는 버전을 나눠서 빌드하기 때문에 테스트시 용이하다. 
+gradle에 defaultConfig 의 모든 속성을 지원하기 땜누에 버전 코드와 버전 이름도 다르게 지정할 수 있다. 
+
+
+productFlavors {
+dev {
+applicationIdSuffix ".dev"
+versionCode 1
+versionName "1.0.0"
+buildConfigField "String", "url_base", "\"www.naver.com\""
+manifestPlaceholders = [appLabel: "1번앱"]
+}
+
+ope {
+
+applicationIdSuffix ".ope"
+versionCode 1
+versionName "1.0.0"
+buildConfigField "String", "url_base", "\"www.naver.com\""
+manifestPlaceholders = [appLabel: "2번앱"]
+}
+
+}
+앱의 이름과 url_base String 변수값을 이분화 시켰다. 
+applicationIdSuffix 속성을 이용하면 접미사 변경으로 패키지명이 바뀌게 되어 2개의 앱을 생성할 수있다. 
+
+- applicationIdSuffix : 어플리케이션 아이디의 접미사
+- crunchPngs : 압축되지 않은 png 리소스를 줄인다. ( 릴리즈는 기본 true , 빌드시간 증가 ) 
+- debuggable : ( 해당 apk의 디버그 가능 여부, 디폴트로 생성되는 debug와 release 단계중 debug는 true ) d
+- minifyEnabled : 사용하지 않는 자바 코드 제거 ( 디폴트 false , 릴리즈는 디폴트 true )
+- buildConfigField : buildConfig 파일에 새로운 필드를 추가합니다.
+
+// flavorDimensions 활용 
+제품 버전과 빌드 유형외의 더 많은 버전의 조합을 사용하고자 할 때 사용한다.
+'차원' 이라는 이름으로 빌드타입, 프로덕트플레버와 더많은 조합의 버전을 생성할 수 있다. 
+flavorDimensions 에 정의된 차원들을 구분하기 위해서 각 제품 버전에 dimension 속성으로 명시하여 구분해야한다. 
+
+flavorDimensions "flavors"
+
+productFlavors {
+dev {
+dimension "flavors"
+applicationIdSuffix ".dev"
+versionCode 1
+versionName "1.0.0"
+buildConfigField "String", "url_base", "\"www.naver.com\""
+manifestPlaceholders = [appLabel: "1번앱"]
+
+}
+
+ope {
+
+dimension "flavors"
+applicationIdSuffix ".ope"
+versionCode 1
+versionName "1.0.0"
+buildConfigField "String", "url_base", "\"www.naver.com\""
+manifestPlaceholders = [appLabel: "2번앱"]
+
+}
+
+// 빌드타입 선택 
+안드로이드 스튜디오 좌측 Build Variats 를 선택하면 빌드타입별 빌드가 가능하다. 
+
+// 빌드타입 비생성
+varianFilter 를 사용해서 빌드타입 선택창에서 빌드타입을 비 노출할 수 있다. 
+
+android.variantFilter { variant ->
+def name = variant.getFlavors().get(0).name
+def isDebug = variant.buildType.name.equals('debug')
+//if (name1.equals('ignoredName1') && name2.equals('ignoredName2') && isRelease)
+if (name.equals("flavors") && isRelease)
+variant.setIgnore(true);
+}

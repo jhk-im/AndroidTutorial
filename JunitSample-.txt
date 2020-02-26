@@ -1,0 +1,69 @@
+https://alexzh.com/android-testing-unit-testing/
+
+// Junit 이란?
+- Java 프로그래밍 언어의 Unit Test 프렘워크이다. 
+
+// 테스트방법
+1. 수동테스트
+-> 시간이 많이 걸림 
+-> 인건비가 많이 듬
+-> 사람의 손으로 하기 때문에 신회성 떨어짐
+-> 프로그래밍 불가능
+
+2. 자동화 테스트
+-> Fast Automation 은 인적 자원보다 훨씬 빠르게 테스트를 실행한다.
+-> 인건비 감소
+-> 사람의 손보다 보다 안정적이다.
+-> 프로그래밍이 가능하다. 
+
+// Local Unit Test ?  Instrumentation Test? 
+*로컬단위 테스트
+- JVM 에서 실행된다.
+*Instrumentation Test
+- Android 기기가 필요하다. 
+
+*프로젝트 구조 
+소스코드 -> src/main/java
+로컬단위테스트 -> src/test/java
+Instrumentation Test -> src/androidTest/java 
+
+*Junit 프레임워크 basic assets
+- void assertEquals (expected,actual) - primitive / object 가 동일한 지 확인 
+- void assertTrue (condition) - 조건이 참인지 확인
+- void assertFalse (object) - 객체가 null이 아닌지 확인한다.
+- void assertNotSame (unexpected, actual) - 두개의 객체 참조가 동일한 객체를 가리키지 않는지 
+- void assertArrayEquals (expectedArray,actualArray) - 두 배열이 서로 같은지 테스트 
+
+3. JUnitExample / JUnitExampleTest
+JUnitExample 생성하고 JUnitExampleTest에서 basic asset 을 test해보자 
+
+
+@Test
+The @Test annotation tells JUnit that the public void method to which it is attached can be run as a test case.
+
+@Before
+Several tests need similar objects created before they can run. Annotating a public void method with @Before let’s JUnit that this method to be run before each Test method.
+
+@After
+If you allocate some external resources in a @Before method you need to release them after the test runs. Annotating a public void method with @After allows to do it.
+
+@BeforeClass
+Annotating a public static void method with @BeforeClass allows to be run once before any of the test methods in the class.
+
+@AfterClass
+This will perform the method after all tests have finished. This can be used to perform clean-up some activities.
+
+@Ignore
+The @Ignore annotation is used to ignore the test and that test will not be executed.
+
+4. 응용프로그램 테스트  
+CoffeeOrder.java  / MainActivity.java / activity_main.xml 
+
+CoffeeOrderTest.java 를 만들어 다음을 테스트 해 볼수있다.
+-> 커피 주문 객체가 null이 아닌지 테스트
+-> 커피 카운트 방법 설정
+-> 가치증가
+-> 가치감소
+-> 총 가격계산 
+
+

@@ -1,0 +1,34 @@
+https://black-jin0427.tistory.com/111
+https://thdev.tech/androiddev/2016/05/04/Android-Test-Example/
+
+Espresso 
+
+- UI 를 테스트할 수 있다. 
+
+// 사용법
+
+1. app 단계 build.gradle 에 라이브러리 추가 
+androidTestImplementation 'com.android.support.test:runner:1.0.2'
+androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+androidTestImplementation 'com.android.support.test:rules:1.0.2'
+androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2' -> 인텐트 테스트 
+
+2. AndroidTest 설정
+app 단계 build.gradle 에 android{ defaultConfig { -> 
+testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"  확인 
+
+dependencies 에서 
+androidTestImplementation 'com.android.support:support-annotations:28.0.0' 확인 
+<-- 애너테이션을 활용해 프로그램의 결함을 찾아낼 수 있다. 
+코드를 작성할때 편리하게 애너테이션을 사용할 수 있다 --> 
+
+*Annotation 
+@Before : @Test를 시작하기 전 사전에 진행해야 할 사전 정의에 해당됩니다. @Test가 시작되기 전 항상 호출되게 됩니다.(단위 테스트 포함)
+@After :  모든 테스트가 종료되면 호출되게 됩니다. 메모리에서 resource를 release 할 수 있습니다.
+@Test : @Before가 완료되면 실제 코드 테스트를 진행하게 됩니다.
+@Rule : 해당 Test class에서 사용하게 될 ActivityTestRule과 ServiceTestRule에 대하여 정의하게 됩니다.
+@BeforeClass, @AfterClass : public static method로 정의하여야 하며, @Before, @After와 동일하게 한 번씩만 실행되게 됩니다.
+@Test(timeout=) : @Test 룰에 대한 timeout을 지정하게 됩니다. timeout 안에 테스트가 완료되지 않으면 fail이 되며, time은 milliseconds으로만 사용할 수 있습니다. 예) @Test(timeout=500)
+@RequiresDevice : 에뮬레이터를 사용하지 않고 기기만 사용할 수 있습니다.
+@SdkSupress : minSdkVersion을 지정할 수 있습니다.
+@SmallTest, @MediumTest, @LargeTest : 테스트 성격을 구분하여 테스트할 수 있습니다.

@@ -1,0 +1,45 @@
+https://black-jin0427.tistory.com/188
+
+프로가드_2
+
+안드로이드 개발시 다양한 라이브러리를 사용하게 된다. 
+이에 맞춰 프로가드 또한 추가설정을 해주어야 한다. 
+
+release {
+    minifyEnabled true
+    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+}
+이것이 적용되면 플레이스토어에 올릴 apk 파일을 생성할 때 
+릴리즈 버전에서 난독화가 진행되게 된다. 
+progurad-rules.pro 에 자신이 추가한 라이브러리도 동일하게 난독화를 진행해 주어야 한다. 
+
+
+1. Retorofit2 프로가드 설정
+- 프로가드를 설정해주지 않으면 앱에서 동작하지 않는다. 
+Retrofit 홈페이지에 Proguard 설정하는 법이 나와았다. 
+
+https://github.com/square/retrofit/blob/master/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro
+
+<사용한 Proguard 옵션>
+- keepattributes : 소스파일, 라인정보 유지
+- keepclassmembers :  특정 클래스 맴버 원상태 유지
+- dontwarn : 경고 무시
+
+* 여기서 RxJava2 를 총해 레트로핏 통신을 한다면 프로가드에도 추가로 설정이 필요하게 된다. 
+통신할 때 사용하는 모델의 난독화를 없애 주어야 한다.
+ex)
+ -keep class {Your Package}.api.model.** { *; }
+
+
+2. Gson 
+Gson 도 마찬가지로 난독화 코드가 공개되어 있다. 
+https://github.com/google/gson/blob/master/examples/android-proguard-example/proguard.cfg
+
+3. Glide
+https://github.com/bumptech/glide#proguard
+
+
+
+*프로가드 적용할 때 먼저 사용중인 라이브러리가 잘 작동되는지 하나하나 확인해 봐야 한다. 
+라이브러리 자체에 프로가드 설정이 없다면 프로젝트가 난독화 되면서 제대로 동작하지 않을 수 있기 때문이다. 
+라이브러리 문서에서 프로가드 설정에대한 도움을 받을 수 있다. 

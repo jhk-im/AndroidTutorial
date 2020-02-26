@@ -1,0 +1,49 @@
+https://alexzh.com/android-testing-mockito-robolectric/
+
+Mockito 와 Robolectric
+
+//단위테스트의 어려움
+단위 테스트는 클래스를 별도로 테스트해야 한다. 
+많은 java 클래스가 다른 클래스에 의존하기 때문이다. 
+이 문제를 해결하기 위해 test dubles 를 사용한다. 
+
+// Classifiation of different objects 
+<--
+더미 객체는 객체 매개 변수로 전달하지만 사용되지 않는다. 
+즉, 메소드는 절대 사용되지 않는다. 이와 같은 객체는 매개변수로 전달된다.
+가짜객체는 작동하지만 일반적으로 단순화 되어있다.
+스텁 클래스는 클래스 또는 테스트를 위해 클래스를 사용하는 인터페이스에 대한 부분 구현이다. 
+mock 객체는 메소드 호출을 위해 정의된 클래스 또는 인터페이스에 대한 더미구현이다. 
+--> 구글번역기 직역... 이해하고서 다시한번 정리해볼것 
+
+// Mock object generation 
+<--
+mock 객체를 수동으로 생성하거나 mock 프레임 워크를 사용하여 클래스를 시뮬레이션 할 수 있다.
+예를들어 mock 객체는 데이터 공급자이다. 
+으용 프로그램은 프로덕션환경에서 실제 데이터베이스를 사용하지만 
+테스트를 위해서는 데이터베이스를 시뮬레이션하고 테스트 조건이 항상 동일한 mock 객체를 사용하는것이 좋다.
+-->
+
+// Mocking frameworks
+Mock 프로엠워크를 사용하면 mock 객체를 가능한 간단하게 만들 수 있다. 
+- EasyMock , jMock, Mockito 
+
+// Mockito ?
+JUnit 과 함께 사용할 수 있는 대중적인 mock 프레임워크이다.
+Mockito 를 사용하면 mock 객체를 생성하고 구성할 수 있다. 
+
+
+// Mockito 상용법
+
+1. app 단계 Build.gradle
+testImplementation 'org.mockito:mockito-core:2.22.0'
+Mockiot 라이브러리 구현 
+
+2. MockitoExample / MockitoExampleTest
+
+*Mockito 를 통해 객체의 반환값을 임의로 정해 UnitTest를 할 수 있다. 
+객체에 데이터를 추가하는 다양한 기능 및 검증을 할 수 있는 함수가 많이 있다. 
+Mockito tutorial
+https://www.vogella.com/tutorials/Mockito/article.html
+
+

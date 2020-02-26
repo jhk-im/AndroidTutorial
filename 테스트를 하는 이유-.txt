@@ -1,0 +1,40 @@
+https://black-jin0427.tistory.com/107
+
+//테스트를 하는 이유
+
+1. 자신의 코드에 대한 안정성검사 
+2. 코드 리팩토링시 기존에 돌아가던 로직을 검사
+
+//테스트종류
+
+1.Unit Test
+- 일반적으로 코드의 유닛 단위 (메소드,클래스,컴포넌트) 의 기능을 실행하는 방식 
+- JUnit, Mockito, PowerMock
+
+2. Ui Text
+- 사용자 인터랙션(버튼클릭, 텍스트 입력 등)을 평가
+- Espresso, UIAutomator, Robotium, Appium, Calabash, Robolectric
+
+// 사용법
+
+1. app 단계 build.gradle
+dependencies  
+testImplementation 'junit:junit:4.12' 
+androidTestImplementation 'com.android.support.test:runner:1.0.2'
+androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+- 위 3가지 implementation 이 테스트를 위해 필요한 라이브러리이다. 
+
+2. Project 파일 단계에서 확인 
+Project 단계에서 앱파일확인
+-> src/androidTest 와 src/test 파일이 생성됨
+*androidTest -> Ui테스트를 진행하는 곳
+*test -> Unit테스트를 진행하는 곳 
+
+3. ExamapleUnitTest
+Unit Test 예제파일로 기본 설정이 되어있다. 
+
+4. 테스트 파일 실행
+ExampleUnitTest 우클릭 -> Run 'ExampleUnitTest'  
+또는 ExampUnitTest 를 열고 테스트하고자 하는 클래스나 메소드 옆 플레이버튼을 클릭
+
+5. 클래스파일 생성 후 Unit Test
