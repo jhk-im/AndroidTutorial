@@ -1,6 +1,6 @@
 # AndroidTutorial
 
-1. Android Test
+# 1 Android Test
 
 //앱 개발시 테스트를 해야하는 이유
 1) 자신의 코드에 대한 안전성 검사
