@@ -1,6 +1,17 @@
 # AndroidTutorial
+안드로이드 개발을 하면서 새로 접하거나 공부하게 되는 내용들을 정리해 두었다. 
 
-# 1 Android Test
+# Android Basic Tutorials
+기본적인 튜토리얼을 모아둔 디렉토리이다. 
+
+// 프로젝트 
+- Debug Tutorial
+- Handler Tutorial
+- Sample Android
+- Sample Maps API
+- Sample News App 
+
+# Android Test
 
 //앱 개발시 테스트를 해야하는 이유
 1) 자신의 코드에 대한 안전성 검사
