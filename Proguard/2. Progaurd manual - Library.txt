@@ -1,9 +1,6 @@
 https://black-jin0427.tistory.com/188
 
-프로가드_2
-
-안드로이드 개발시 다양한 라이브러리를 사용하게 된다. 
-이에 맞춰 프로가드 또한 추가설정을 해주어야 한다. 
+// 라이브러리 프로가드 설정 
 
 release {
     minifyEnabled true
