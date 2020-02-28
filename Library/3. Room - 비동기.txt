@@ -1,0 +1,35 @@
+Room 비동기 
+
+동기
+- 요청과 그 결과가 동시에 일어난다는 뜻, 
+- 어떤 객체 또는 함수 내부에서 다른 함수를 호출했을 때 이 함수의 결과를 호출한 쪽에서 처리 
+
+비동기
+- 요청과 그 결과가 동시에 일어나지 않는다는 뜻,
+- 다른 함수를 호출했을 때 이 함수의 결과를 호출한 쪽에서 처리하지 않음 
+
+
+        final AppDatabase db =
+                Room.databaseBuilder(this,AppDatabase.class,"todo-db")
+                        .allowMainThreadQueries() // 임시 - Test 용
+                        .build();
+
+allowMainThreadQueries()  -> MainThread 에서 쿼리를 허용한다.
+* db 작업을 많이하는 앱에서 MainThread 에서의 쿼리를 허용한다는 것은 성능저하를 부른다.
+
+allowMainThreadQueries() -> 제거 
+-> 그냥 실행하고 데이터베이스에 데이터를 추가하면 앱이 꺼진다. 
+*Cannot access database on the main thread
+
+// todoDAO 안에 메소드를 백그라운드에서 실행하는 방법
+Thread or AsyncTask 
+
+// AsyncTask 
+prviate static class InsertAsyncTask extends AsyncTask<Todo, Void, Void> {
+	private TodoDAO mtodoDAO; 
+	doInBackground { 이곳에서 비동기 처리 }
+}
+--> 주석확인
+
+
+* 구글에서 DB 액세스는 반드시 백그라운드 쓰레드에서 하는것을 권고함

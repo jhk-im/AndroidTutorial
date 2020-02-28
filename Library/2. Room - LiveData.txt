@@ -1,0 +1,54 @@
+LiveData
+
+Database 내용을 관찰한다. 
+
+//관찰하고싶은 객체? 
+todoDAO 의  List<Todo>  
+-> 이 객체를 관찰하고 있다고 변경이 있으면 자동으로 update를 하는 로직을 작성하자.
+
+1) LiveData <List<Todo>> 로 감싼다. 
+	-> 해당 객체는 관찰 가능한 객체가 된다. 
+
+
+2) db.todoDAO().getAll().observe(this, newObserver<List<Todo>>() )
+	-> 관찰하는 메소드 생성 
+
+
+3) File -> Project Structure -> Modules -> Source Compatibility, Target Compatibility  
+	-> 1.8 변경 
+	-> 람다 사용 가능 
+
+4) 관찰하는 메소드 alt+ enter  -> Repleace 
+	db.todoDAO().getAll().observe(this, todos -> {  실행할 로직  });
+	-> 데이터베이스 . 데이터베이스 DAO . getAll() 했을 때 결과가 todos로 들어감 
+
+5) 실행할 로직 -> mResultTextView.setText(todos.toString()): 
+
+UI 갱신 로직 완료 
+
+
+
+
+---------------------------------
+*람다? 
+람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것이라고 할 수 있다. 
+람다 표현식에는 이름은 없지만, 파라미터 리스트, 바디, 반환형식, 발생할 수 있는 예외 리스트는 가질 수 있다. 
+
+특징 
+1) 익명 : 보통 메서드와 달리 이름이 없다. 
+2) 함수 : 메서드처럼 특정 클래스에 종속되지 않으므로 함수라 부른다. 
+메서드처럼 파라미터 리스트, 바디, 반환 형식, 가능한 예외리스트를 포함한다. 
+3)전달 : 람다 표현식을 메서드 인수로 전달하거나 변수로 저장할 수 있다. 
+4) 간결성 : 익명 클래스처럼 많은 코드를 구현할 필요가 없다.
+
+ex)
+기본코드
+Comparator<Apple> byWeight = new Comparator<Apple> () {
+	@Override
+	public int compare(Apple a1, Apple a2){
+		return a1.getWeight().compareTo(a2.getWeight());	
+	}
+};
+람다식
+Comparator<Apple> byWeight = (Apple a1, Apple a2)
+			-> a1.getWeight().compareTo(a2.getWeight());
