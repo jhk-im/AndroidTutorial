@@ -56,7 +56,7 @@
 - AndroidProguardSample
 
 # Library
-자주 사용하는 라이브러리에 관련된 대용들을 모아둔 디렉토리
+자주 사용하는 라이브러리에 관련된 내용들을 모아둔 디렉토리
 
 // 프로젝트
 - Room Tutorial 
