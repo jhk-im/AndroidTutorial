@@ -55,6 +55,13 @@
 // 프로젝트 
 - AndroidProguardSample
 
+# Library
+자주 사용하는 라이브러리에 관련된 대용들을 모아둔 디렉토리
+
+// 프로젝트
+- Room Tutorial 
+- 
+
 # UI
 UI에 관련된 내용들 정리해 둔 디렉토리 
 
