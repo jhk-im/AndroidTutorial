@@ -1,0 +1,85 @@
+http://bumptech.github.io/glide/
+https://github.com/bumptech/glide
+
+Glide?
+
+글라이드는 안드로이드의 빠르고 효과적인 오픈소스 미디어 매니지먼트 및 이미지 로딩 프레임워크이다. 미디어 디코딩/메모리 & 디스크 캐싱, 리소스 풀링 기능을 쉽고 간단한 인터페이스에 담았다. 
+
+getching, 디코딩, 비디오 스틸/이미지/GIF 재생 등을 지원한다. 글라이드에 포함된 유연한 API는 개발자로 하여금 거의 어떤 네트워크 스택에도 연결시킬 수 있게 한다. 기본적으로 HttpUrlConnection 스택을 쓰지만, Google Volley 나 Square 의 OkHttp 라이브러리도 쓸 수 있다. 
+
+글라이드는 어떤 종류의 이미지라도 빠르고 부드럽게 스크롤 할 수 있게 하는 것이 목적이며, 또한 붙이고, 리사이즈하고, 디스플레이 하는데도 효과적이다. 
+
+https://github.com/bumptech/glide
+
+
+//사용법
+
+LibraryTutorials 프로젝트
+
+1. app - build.gradle 
+  implementation 'com.github.bumptech.glide:glide:4.9.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+매니패스트 설정 
+<uses-permission android:name="android.permission.INTERNET"/>
+
+2. MainActivity 
+
+  Glide.with(this) // context
+  .load("http://goo.gl/gEgYUd") // 이미지 url
+  .into(imageView); // 붙일 imageView
+
+3. 각종옵션 
+//디폴트 옵션
+Glide.with(fragment)
+  .load(myUrl)
+  .placeholder(placeholder)
+  .fitCenter()
+  .into(imageView);
+
+// style.xml 처럼 옵션 객체를 이용해 옵션값을 저장하고 꺼내서 사용할 수 있다. 
+RequestOptions sharedOptions = 
+    new RequestOptions()
+      .placeholder(placeholder)
+      .fitCenter();
+
+Glide.with(fragment)
+  .load(myUrl)
+  .apply(sharedOptions)
+  .into(imageView1);
+
+Glide.with(fragment)
+  .load(myUrl)
+  .apply(sharedOptions)
+  .into(imageView2);
+
+//override()
+이미지를 저장한 크기만큼 불러온다. 
+로딩 속도를 빠르게 하고 메모리를 절약하고 싶을 때 유용하다. 
+Glide.with(this)
+	.load("이미지 url...")
+    .override(이미지 사이즈) // ex) override(600, 200)
+    .into(imageView)
+
+//placeholder()
+이미지가 로딩하는 동안 보여질 이미지를 정한다. 
+Glide.with(this)
+	.load("이미지 url...")
+    .placeholder(로딩 이미지) // ex) placeholder(R.drawable.loading)
+    .into(imageView)
+
+//error() 
+이미지를 불러오는데 실패했을 때 보여질 이미지를 정한다. 
+Glide.with(this)
+	.load("이미지 url...")
+    .error(실패 이미지) // ex) error(R.drawable.error)
+    .into(imageView)
+
+// asGif()
+gif 이미지를 로딩할 때 호출하는 함수 
+Glide.with(this)
+	.load("이미지(GIF) url...")
+    .into(imageView)
+    .asGif()
+
+

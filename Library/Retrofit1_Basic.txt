@@ -81,8 +81,7 @@ Call<ArrayList<JsonObject>> res = NetRetrofit.getInstance().getService().getList
 -> onFailure : 에러발생
 
 
-
-
+주석확인 
 
 
 

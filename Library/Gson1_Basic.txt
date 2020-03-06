@@ -1,0 +1,34 @@
+https://re-build.tistory.com/41
+https://github.com/google/gson
+
+Gson ?
+Java Object -> JSON / JSON -> Java Object 
+
+주요기능
+- 기본형 변환
+- 클래스 변환
+- 제네릭지원, List, Map 등의 콜렉션 변환
+- 멀티스레드 지원, 내부상태를 갖지않아 Thread-safe 
+- 빠르고 가볍다. 
+
+생성 
+// Java   Gson gson = new Gson() 
+// Kotlin  var gson = Gson()
+
+형변환 Java -> Json
+gson.toJson(short, int, long, float, double, String, Object)
+
+형변환 Json -> Java 
+gson.formJson(json 문자, jsonClass)
+
+LibraryTutorials 프로젝트
+
+// 사용법
+
+1. app - build.gradle   
+implementation 'com.google.code.gson:gson:2.8.5'
+
+2. MainActivity  주석확인 
+
+
+

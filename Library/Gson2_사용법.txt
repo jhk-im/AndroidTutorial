@@ -1,0 +1,61 @@
+https://beomseok95.tistory.com/124
+
+1. 자바 기본 자료형 변환
+(Serialization)
+Gson gson = new Gson();
+gson.toJson(1);            // ==> prints 1
+gson.toJson("abcd");       // ==> prints "abcd"
+gson.toJson(new Long(10)); // ==> prints 10
+int[] values = { 1 };
+gson.toJson(values);       // ==> prints [1] 
+ 
+(Deserialization)
+int one = gson.fromJson("1", int.class);
+Integer one = gson.fromJson("1", Integer.class);
+Long one = gson.fromJson("1", Long.class);
+Boolean false = gson.fromJson("false", Boolean.class);
+String str = gson.fromJson("\"abc\"", String.class);
+String anotherStr = gson.fromJson("[\"abc\"]", String.class);
+
+
+2.  자바 객체 변환 
+class BagOfPrimitives {
+  private int value1 = 1;
+  private String value2 = "abc";
+  private transient int value3 = 3;
+  BagOfPrimitives() {
+    // no-args constructor
+  }
+}
+
+(Serialization)
+BagOfPrimitives obj = new BagOfPrimitives();
+Gson gson = new Gson();
+String json = gson.toJson(obj); 
+// ==> json is {"value1":1,"value2":"abc"}
+
+
+3. 배열 
+Gson gson = new Gson();
+int[] ints = {1, 2, 3, 4, 5};
+String[] strings = {"abc", "def", "ghi"};
+ 
+// (Serialization)
+gson.toJson(ints);     // ==> prints [1,2,3,4,5]
+gson.toJson(strings);  // ==> prints ["abc", "def", "ghi"]
+ 
+// (Deserialization)
+int[] ints2 = gson.fromJson("[1,2,3,4,5]", int[].class);
+// ==> ints2 will be same as ints
+
+
+4. 컬렉션 
+Gson gson = new Gson();
+Collection<Integer> ints = Lists.immutableList(1,2,3,4,5);
+ 
+// (Serialization)
+String json = gson.toJson(ints); // ==> json is [1,2,3,4,5]
+ 
+// (Deserialization)
+Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
+Collection<Integer> ints2 = gson.fromJson(json, collectionType);

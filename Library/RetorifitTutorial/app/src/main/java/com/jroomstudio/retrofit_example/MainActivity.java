@@ -14,6 +14,8 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView);
         button = (Button) findViewById(R.id.button);
@@ -39,10 +42,20 @@ public class MainActivity extends AppCompatActivity {
                 String id = editText.getText().toString();
 
                 if (!id.isEmpty()) {
-                    Call<ArrayList<JsonObject>> res = NetRetrofit.getInstance().getService().getListRepos(id);
+                    /*
+                    * NetRetrofit. -->  NetRetrofit 싱글톤 생성
+                    * getInstance(). --> 생성된 instance 가져오기
+                    * getService(). --> 연결된 Service Instance 가져오기
+                    * getListRepos(id). --> Repository 리스트를 가져오는 API
+                    *                   --> GET Request 사용
+                    *                   --> 응답형식 jsonObject 를 담는 ArrayList
+                    */
+                    Call<ArrayList<JsonObject>> res =
+                            NetRetrofit.getInstance().getService().getListRepos(id);
                     res.enqueue(new Callback<ArrayList<JsonObject>>() {
                         @Override
                         public void onResponse(Call<ArrayList<JsonObject>> call, Response<ArrayList<JsonObject>> response) {
+                            // 통신이 정상적으로 되었다면 onResponse
                             Log.d("Retrofit", response.toString());
                             if (response.body() != null)
                                 textView.setText(response.body().toString());
@@ -50,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ArrayList<JsonObject>> call, Throwable t) {
+                            // 통신중 에러가 발생했다면 onFailure
                             Log.e("Err", t.getMessage());
                         }
                     });
@@ -61,7 +75,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 
 }

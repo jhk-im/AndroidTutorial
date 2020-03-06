@@ -1,0 +1,27 @@
+http://bumptech.github.io/glide/dev/contributing.html
+
+*Glide 는 이미지에 대한 새 요청을 시작하기 전에 여러 개의 캐시 계층을 검사한다.
+Active resources -> 이미지가 지금 다른 보기에 표시되었는가? 
+Memory cache -> 최근에 로드되었고 여전히 메모리에 저장되었는가? 
+Resource -> 이전에 디스크 캐시에 디코딩, 변환, 쓰기를 하였는가?
+Data -> 이전에 디스크 캐시로 쓰여진 데이터인가?
+
+처음 두 단계는 리소스가 메모리에 있는지 확인하고 있다면 즉시 이미지를 반환한다.
+다음 두 담계는 이미지가 디스크에 있는지 확인하고 신속하게 반환하지만 
+비동기식으로 복구되는지 확인한다. 
+네 단계 모두 이미지를 찾지 못하면, 원래의 원본으로 돌아가 데이터를 검색하게 된다. 
+
+LibraryTutorials 프로젝트
+
+// 비트맵 변환 
+Glide.with(this) 
+. asBitmap() 
+. load("이미지 url") // 이미지 url 주소 
+. diskCacheStrategy(DiskCacheStrategy.NONE) // 디스크 캐시 건너뛰기 
+. skipMemoryCache(true) // 메모리 캐시 건너뛰기 
+. listener(new RequestListener<Bitmap>()  // 응답 리스너 
+	-> onLoadFailed () {}
+	-> onResourceReady() {} 
+
+.submit() ; 
+

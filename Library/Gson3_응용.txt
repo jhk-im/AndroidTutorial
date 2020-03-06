@@ -1,0 +1,43 @@
+https://re-build.tistory.com/41
+
+
+LibraryTutorials 프로젝트
+
+1. assets foler 생성 
+app 우클릭 -> new -> folder -> assets folder 생성 
+
+2. JSON파일 준비
+assets folder 안에 
+album.json 파일 생성 
+
+3. 데이터 vo 클래스 작성
+-> json 데이터를 담을 그릇
+-> 각 앨범에 대한 정보를 담을 클래스 
+-> json에 작성한 key 동일하게 변수명을 작성해야함 
+AlbumVO.java 
+
+4. JSON 데이터 파싱
+MainActivity  -->주석확인
+
+   /*
+        * JSON 데이터 파싱하기 - 응용
+        * 1. AlbumVO 를 담는 ArrayList 생성
+        * 2. Gson 객체 생성
+        * 3. try catch
+        * 4. InputStream 생성하고 album.json 의 내용을 담는다.
+        * 5. AlbumVO 는 앨범 단위로 구분되어있다.
+        *   -> byte 배열에 inputStream 담는다. is.available() 현재 읽을 수 있는 바이트수 반환
+        *   -> new String () 으로 byte 배열, UTF-8 으로 String 생성
+        *   -> new JsonObject (String) 하여 jsonObject 로 변환한다.
+        *   -> album 이라는 key 를 이용해 데이터를 jsonArray 형태로 변환한다.
+        * 여기서 각각의 정보에대한 name 값을 통해 각 데이터에 접근하여
+        * 각각의 데이터들을 AlbumVO 에 담아야한다.
+        * 여기서 Gson 라이브러리를 사용하면 한번에 해결된다.
+        * 6. jsonArray while 문 생성
+        * 7. AlbumVO -> testGson.fromJson(jsonArray.. )
+        *    ArrayList<AlbumVO>  add(AlbumVO)
+        *    while 문을 돌면서 Gson 객체가 자동으로
+        *    AlbumVO.class 에 맞게 Deserialization 한다.
+        * 8. String albumList = testGson.toJson(list_album);
+        *    AlbumVO 에 담긴 JSON 을 javaObject 로 serialization 하여 출력한다.
+        * */
