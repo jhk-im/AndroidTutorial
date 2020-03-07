@@ -66,3 +66,8 @@
 UI에 관련된 내용들 정리해 둔 디렉토리 
 
 
+# TEST
+https://developerjj.blogspot.com/ 
+
+안드로이드 
+- 4대컴포넌트 예제
