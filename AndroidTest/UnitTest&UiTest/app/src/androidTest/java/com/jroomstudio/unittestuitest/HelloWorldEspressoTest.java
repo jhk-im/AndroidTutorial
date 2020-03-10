@@ -56,7 +56,6 @@ public class HelloWorldEspressoTest {
     @Test
     public void testChangeTextToSecondActivity() throws Exception {
         // Type text and then press the button.
-
         // et_message 에 clearText() 를하여 값을 지운다.
         onView(withId(R.id.et_message)).perform(clearText());
         // et_message 에 typeText 를 입력하고 키보드를 숨긴다.

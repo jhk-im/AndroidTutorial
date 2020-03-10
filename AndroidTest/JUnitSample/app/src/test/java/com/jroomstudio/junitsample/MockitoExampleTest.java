@@ -1,6 +1,4 @@
-package com.jroomstudio.unittestuitest;
-
-import com.jroomstudio.unittestuitest.sample.MockitoExample;
+package com.jroomstudio.junitsample;
 
 import org.junit.Test;
 
