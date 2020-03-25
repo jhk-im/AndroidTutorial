@@ -9,10 +9,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
-/*
+/**
 * Data Access Object -> Todo Entity 에 접근하기 위한 인터페이스
 * @Dao annotation 추가
-* Tod 에서 어떤 동작을 할 것인지 정의한다.
+* Todo 에서 어떤 동작을 할 것인지 정의한다.
 * */
 @Dao
 public interface TodoDAO {

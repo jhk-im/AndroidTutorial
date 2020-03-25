@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
          * databaseBuilder(context, Database 객체, Database 명)
          * Database 명 의 파일이 실제로 생성 된다.
          **/
+
         final AppDatabase db =
                 Room.databaseBuilder(this,AppDatabase.class,"todo-db")
                         //.allowMainThreadQueries() // 임시 - Test 용
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         db.todoDAO().getAll().observe(this, todos -> {
             mResultTextView.setText(todos.toString());
         });
-
 
         //mResultTextView.setText(db.todoDAO().getAll().toString());
 
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         private InsertAsyncTask(TodoDAO mTodoDAO) {
             this.mTodoDAO = mTodoDAO;
         }
-
 
         /**
          * Override this method to perform a computation on a background thread. The
