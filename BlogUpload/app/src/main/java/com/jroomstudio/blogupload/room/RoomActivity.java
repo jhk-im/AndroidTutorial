@@ -65,9 +65,8 @@ public class RoomActivity extends AppCompatActivity {
         * 람다식 사용
         * file -> project structure -> modules -> source compatibility, target compatibility -> 1.8
         **/
-        db.dataModelDAO().getAll().observe(this, dataList -> {
-            mResultTextView.setText(dataList.toString());
-        });
+        db.dataModelDAO().getAll().observe(this, dataList ->
+            mResultTextView.setText(dataList.toString()));
 
         /**
          * Insert
