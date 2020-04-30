@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BlogUpload</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
+
+    <!--facebook-->
+    <string name="facebook_app_id">715817162559158</string>
+    <string name="fb_login_protocol_scheme">fb715817162559158</string>
+
 </resources>

@@ -40,9 +40,8 @@ public class MovieActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try{
                 Document doc = Jsoup.
-                        //connect("https://sports.news.naver.com/news.nhn?oid=477&aid=0000238277").get();
+                        //connect("https://sports.news.naver.com/news.nhn?oid=477&aid=0000238277&m_view=1&sort=LIKE").get();
                         connect("https://movie.naver.com/movie/running/current.nhn").get();
-                Log.e("doc","doc : "+ doc);
 
                 Elements mElementDataSize = doc.
                         select("ul[class=lst_detail_t1]").select("li");

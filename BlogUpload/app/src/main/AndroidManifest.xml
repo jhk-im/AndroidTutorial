@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jroomstudio.blogupload">
+    <!-- Alert window -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,15 +13,65 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".room.RoomActivity">
+
+
+        <activity android:name=".login.NaverLoginActivity">
+            <!--네이버 로그인 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".chip.ChipActivity"></activity>
-        <activity android:name=".itemtouch.ItemTouchActivity"></activity>
+
+        <activity
+            android:name=".login.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name">
+            <!-- 페이스북 로그인 -->
+        </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id">
+            <!-- 페이스북 메타데이터 -->
+        </meta-data>
+
+
+        <activity android:name=".login.LoginActivity">
+            <!-- 구글로그인 -->
+        </activity>
+        <activity android:name=".login.LoginSecondActivity">
+            <!-- 구글로그인 -->
+        </activity>
+
+        <activity android:name=".kakaolink.KakaoLinkActivity">
+            <!-- 카카오 링크 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key"><!-- kakao sdk --></meta-data>
+        <activity android:name=".hashkey.KeyHashActivity"><!-- hash key --></activity>
+        <activity android:name=".coordinatorlayout.CoordinatorLayoutActivity"><!-- Coordinator 예제 --></activity>
+        <activity android:name=".alertwindow.AlertWindow"><!-- alert window --></activity>
+        <service
+            android:name=".alertwindow.AlertWindowService"
+            android:enabled="true"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW">
+            <!-- alert window -->
+        </service>
+        <activity android:name=".room.RoomActivity"><!-- room --></activity>
+        <activity android:name=".chip.ChipActivity"><!-- chip --></activity>
+        <activity android:name=".itemtouch.ItemTouchActivity"><!-- item touch --></activity>
     </application>
 
 </manifest>

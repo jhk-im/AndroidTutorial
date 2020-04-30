@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 카카오 디벨로퍼 앱 만들기에서 네이티브 키 -->
+    <string name="kakao_app_key">900dc200b4bb35e0d43fa46dc5a9ae8c</string>
+    <string name="kakao_scheme">kakao900dc200b4bb35e0d43fa46dc5a9ae8c</string>
+    <string name="kakaolink_host">kakaolink</string>
+
+</resources>
