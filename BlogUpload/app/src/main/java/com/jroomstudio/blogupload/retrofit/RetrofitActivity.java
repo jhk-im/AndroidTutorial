@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jroomstudio.blogupload.R;
 
 import java.util.HashMap;
@@ -36,6 +37,12 @@ public class RetrofitActivity extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.sign_in_button);
         signIn.setOnClickListener(v -> {
 
+            // 전송 후 데이터 콜백
+            //retrofitPOSTJSONCallback();
+            //retrofitPOSTHashMapCallback();
+            retrofitGETCallback();
+
+            // 전송만
             //retrofitPATCH();
             //retrofitPUT();
             //retrofitJsonPOST();
@@ -50,13 +57,24 @@ public class RetrofitActivity extends AppCompatActivity {
 
     }
 
-    //GET 전송
-    void retrofitGET(){
+    // 레트로핏 생성
+    private RetrofitService createRetrofit(){
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitService.SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        return retrofitService;
+    }
+    /**
+     * 데이터 전송만
+     **/
+    //GET 전송
+    void retrofitGET(){
+
+        RetrofitService retrofitService = createRetrofit();
 
         retrofitService.getData("wante0301@naver.com","123123").
                 enqueue(new Callback<ResponseBody>() {
@@ -73,15 +91,10 @@ public class RetrofitActivity extends AppCompatActivity {
                     }
                 });
     }
-
     // POST JSON 전송
     void retrofitJsonPOST(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        RetrofitService retrofitService = createRetrofit();
 
         Member member = new Member(
                 "wanted0301@naver.com",
@@ -98,7 +111,9 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.e("post", response.toString());
+                    Log.e("response", response.toString());
+                    Log.e("body", response.raw().body()+"");
+                    Log.e("header", response.headers()+"");
                 }
             }
 
@@ -110,15 +125,10 @@ public class RetrofitActivity extends AppCompatActivity {
 
 
     }
-
     // POST HashMap 전송
     void retrofitHashMapPOST(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        RetrofitService retrofitService = createRetrofit();
 
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
         HashMap<String, Object> input = new HashMap<>();
         input.put("member_email", "kkk@kkk.com");
         input.put("member_name","kkk");
@@ -143,15 +153,9 @@ public class RetrofitActivity extends AppCompatActivity {
             }
         });
     }
-
     // POST Field 전송
     void retrofitFieldPOST(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        RetrofitService retrofitService = createRetrofit();
 
         retrofitService.postData(
                 "k@nate.com",
@@ -177,15 +181,9 @@ public class RetrofitActivity extends AppCompatActivity {
         });
 
     }
-
     // PUT 데이터 전송
     void retrofitPUT(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        RetrofitService retrofitService = createRetrofit();
 
         Member member = new Member(
                 "wanted0301@naver.com",
@@ -212,21 +210,15 @@ public class RetrofitActivity extends AppCompatActivity {
             }
         });
     }
-
     // PATCH 데이터 전송
     void retrofitPATCH(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-
+        RetrofitService retrofitService = createRetrofit();
         retrofitService.patchData("wante@naver.com","123123").
                 enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            Log.e("post", response.toString());
+                            Log.e("post", response.raw().body() +"");
                         }
                     }
 
@@ -236,4 +228,98 @@ public class RetrofitActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * 데이터 전송 후 데이터 콜백
+     **/
+    // GET 콜백
+    void retrofitGETCallback(){
+        RetrofitService retrofitService = createRetrofit();
+        retrofitService.getDataCallback("kkk@kkk.com","kkkkkk")
+                .enqueue(new Callback<Member>() {
+                    @Override
+                    public void onResponse(Call<Member> call, Response<Member> response) {
+                        // Member member = response.body();
+                        if (response.isSuccessful()) {
+                            Log.e("post", response.body()+"");
+                            Log.e("body", response.raw().body()+"");
+                            Log.e("header", response.headers()+"");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Member> call, Throwable t) {
+                        Log.e("onFailure",t.getMessage());
+                    }
+                });
+    }
+
+    // HashMap 콜백
+    void retrofitPOSTHashMapCallback(){
+        RetrofitService retrofitService = createRetrofit();
+
+        HashMap<String, Object> input = new HashMap<>();
+        input.put("member_email", "kkk@kkk.com");
+        input.put("member_name","kkk");
+        input.put("auto_password", "123123");
+        input.put("photo_url", "no");
+        input.put("dark_theme", true);
+        input.put("push_notice", true);
+        input.put("login_type", 0);
+        input.put("login_status", true);
+
+        retrofitService.postDataCallback(input).
+                enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                // Member member = response.body();
+                if (response.isSuccessful()) {
+                    Log.e("post", response.body()+"");
+                    Log.e("body", response.raw().body()+"");
+                    Log.e("header", response.headers()+"");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+                Log.e("onFailure",t.getMessage());
+            }
+        });
+    }
+
+    // json 콜백
+    void retrofitPOSTJSONCallback(){
+
+        RetrofitService retrofitService = createRetrofit();
+        Member member = new Member(
+                "wanted0301@naver.com",
+                "kim",
+                "img",
+                "123123",
+                true,
+                true,
+                0,
+                true
+        );
+
+        retrofitService.postDataCallback("application/json",member).
+                enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                // Member member = response.body();
+                if (response.isSuccessful()) {
+                    Log.e("post", response.body() + "");
+                    Log.e("body", response.raw().body()+"");
+                    Log.e("header", response.headers()+"");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+                Log.e("onFailure",t.getMessage());
+            }
+        });
+    }
+    // Field 콜백
+
 }

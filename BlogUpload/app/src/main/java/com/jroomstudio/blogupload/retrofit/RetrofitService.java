@@ -1,6 +1,7 @@
 package com.jroomstudio.blogupload.retrofit;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,7 +37,13 @@ public interface RetrofitService {
      * @return Member 객체를 JSON 형태로 반환.
      */
     @GET("member/get_data.php")
-    Call<ResponseBody> getData(@Query("member_email") String memberEmail, @Query("auto_password") String autoPassword);
+    Call<ResponseBody> getData(@Query("member_email") String memberEmail,
+                               @Query("auto_password") String autoPassword);
+
+
+    @GET("member/get_response.php")
+    Call<Member> getDataCallback(@Query("member_email") String memberEmail,
+                               @Query("auto_password") String autoPassword);
 
 
     /**
@@ -63,13 +70,22 @@ public interface RetrofitService {
 
 
     // json 으로 데이터 넘기기
-    @POST("member/test.php")
+    @POST("member/post_json_response.php")
     Call<Void> postData(@Header("Content-Type") String contentType, @Body Member param);
 
     // HashMap 으로 넘기기
     @FormUrlEncoded
     @POST("member/register.php")
     Call<ResponseBody> postData(@FieldMap HashMap<String, Object> param);
+
+    // HashMap 으로 넘기기
+    @FormUrlEncoded
+    @POST("member/post_hashmap_response.php")
+    Call<Member> postDataCallback(@FieldMap HashMap<String, Object> param);
+
+    // Json 으로 넘기고 콜백
+    @POST("member/post_json_response.php")
+    Call<Member> postDataCallback(@Header("Content-Type") String contentType, @Body Member param);
 
 
     /**

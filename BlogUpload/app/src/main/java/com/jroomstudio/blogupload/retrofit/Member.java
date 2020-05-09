@@ -140,13 +140,13 @@ public class Member {
     @NonNull
     @Override
     public String toString() {
-        return mEmail+"\n"+
-                mName+"\n" +
-                mPhotoUrl+"\n" +
-                mAutoPassword+"\n" +
-                "DarkTheme : "+mDarkTheme+"\n" +
-                "Notice : "+mPushNotice+"\n" +
-                "Login Status : "+mLoginStatus+"\n" +
-                "LoginType : "+mLoginType+"\n"; }
+        return"member_email : "+ mEmail+"\n"+
+                "member_name : "+mName+"\n" +
+                "photo_url : "+mPhotoUrl+"\n" +
+                "auto_password : "+mAutoPassword+"\n" +
+                "dark_theme : "+mDarkTheme+"\n" +
+                "push_notice : "+mPushNotice+"\n" +
+                "login_status : "+mLoginStatus+"\n" +
+                "login_type : "+mLoginType+"\n"; }
 
 }
