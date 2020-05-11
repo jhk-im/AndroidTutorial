@@ -36,12 +36,12 @@ public interface RetrofitService {
      * "http://115.68.221.104/member/userEmail" 이 최종 호출 주소.
      * @return Member 객체를 JSON 형태로 반환.
      */
-    @GET("member/get_data.php")
+    @GET("member/php_retrofit_test/get_data.php")
     Call<ResponseBody> getData(@Query("member_email") String memberEmail,
                                @Query("auto_password") String autoPassword);
 
 
-    @GET("member/get_response.php")
+    @GET("member/php_retrofit_test/get_response.php")
     Call<Member> getDataCallback(@Query("member_email") String memberEmail,
                                @Query("auto_password") String autoPassword);
 
@@ -57,7 +57,7 @@ public interface RetrofitService {
 
     // Field 로 하나하나 입력해서 넘기기
     @FormUrlEncoded
-    @POST("member/register.php")
+    @POST("member/php_retrofit_test/register.php")
     Call<ResponseBody> postData(@Field("member_email")String email,
                                 @Field("member_name")String name,
                                 @Field("auto_password")String password,
@@ -70,23 +70,31 @@ public interface RetrofitService {
 
 
     // json 으로 데이터 넘기기
-    @POST("member/post_json_response.php")
+    @POST("member/php_retrofit_test/post_json_response.php")
     Call<Void> postData(@Header("Content-Type") String contentType, @Body Member param);
 
     // HashMap 으로 넘기기
     @FormUrlEncoded
-    @POST("member/register.php")
+    @POST("member/php_retrofit_test/register.php")
     Call<ResponseBody> postData(@FieldMap HashMap<String, Object> param);
 
     // HashMap 으로 넘기기
     @FormUrlEncoded
-    @POST("member/post_hashmap_response.php")
+    @POST("member/php_retrofit_test/post_hashmap_response.php")
     Call<Member> postDataCallback(@FieldMap HashMap<String, Object> param);
 
     // Json 으로 넘기고 콜백
-    @POST("member/post_json_response.php")
+    @POST("member/php_retrofit_test/post_json_response.php")
     Call<Member> postDataCallback(@Header("Content-Type") String contentType, @Body Member param);
 
+    // jwt test
+    // header 로 jwt 토큰을 넘겨받는다.
+    @FormUrlEncoded
+    @POST("member/php_retrofit_test/post_jwt_create.php")
+    Call<Void> postJWTGetToken(@FieldMap HashMap<String, Object> param);
+    // jwt auth
+    @POST("member/php_retrofit_test/post_jwt_auth.php")
+    Call<ResponseBody> postJWTAuth(@Header("Authorization") String auth);
 
     /**
      * PUT 방식. 값은 위들과 같음.
@@ -96,7 +104,7 @@ public interface RetrofitService {
      * @param member 전달 데이터
      * @return Member 객체를 JSON 형태로 반환.
      */
-    @PUT("member/test.php")
+    @PUT("member/php_retrofit_test/post_json_response.php")
     Call<ResponseBody> putData(@Body Member member);
 
 
@@ -107,7 +115,7 @@ public interface RetrofitService {
      * @return Member 객체를 JSON 형태로 반환.
      */
     @FormUrlEncoded
-    @PATCH("member/get_data.php")
+    @PATCH("member/php_retrofit_test/get_data.php")
     Call<ResponseBody> patchData(@Field("member_email")String email, @Field("member_name")String name);
 
 
@@ -115,7 +123,7 @@ public interface RetrofitService {
      * DELETE
      * Call<ResponseBody> : 통신을 통해 되돌려 받는 값이 없을 경우 사용.
      */
-    @DELETE("member/{userEmail}")
+    @DELETE("member/php_retrofit_test/{userEmail}")
     Call<ResponseBody> deleteData(@Path("user_email") String userEmail);
 
 }

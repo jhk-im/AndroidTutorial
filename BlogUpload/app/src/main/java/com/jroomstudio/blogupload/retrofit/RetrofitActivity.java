@@ -3,6 +3,7 @@ package com.jroomstudio.blogupload.retrofit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,19 +29,24 @@ public class RetrofitActivity extends AppCompatActivity {
 
     Button signIn,logIn,logOut;
     TextView dataTextView;
-
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit);
-
+        sharedPreferences = getSharedPreferences("jwt", MODE_PRIVATE);
+        Log.e("jwt_token",sharedPreferences.getString("token",""));
         signIn = (Button) findViewById(R.id.sign_in_button);
         signIn.setOnClickListener(v -> {
+
+            // jwt
+            //retrofitJWTGetToken();
+            retrofitJWTAuth();
 
             // 전송 후 데이터 콜백
             //retrofitPOSTJSONCallback();
             //retrofitPOSTHashMapCallback();
-            retrofitGETCallback();
+            //retrofitGETCallback();
 
             // 전송만
             //retrofitPATCH();
@@ -239,8 +245,9 @@ public class RetrofitActivity extends AppCompatActivity {
                 .enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
-                        // Member member = response.body();
+                        Member member = response.body();
                         if (response.isSuccessful()) {
+                            //Log.e("member",member.toString());
                             Log.e("post", response.body()+"");
                             Log.e("body", response.raw().body()+"");
                             Log.e("header", response.headers()+"");
@@ -320,6 +327,61 @@ public class RetrofitActivity extends AppCompatActivity {
             }
         });
     }
-    // Field 콜백
+
+    /**
+     * jwt 구현
+     **/
+    // 토큰 받기
+    void retrofitJWTGetToken(){
+        RetrofitService retrofitService = createRetrofit();
+
+        HashMap<String, Object> input = new HashMap<>();
+        input.put("member_email", "kkk@kkk.com");
+        input.put("member_name","kkk");
+        input.put("auto_password", "123123");
+        input.put("photo_url", "no");
+        input.put("dark_theme", true);
+        input.put("push_notice", true);
+        input.put("login_type", 0);
+        input.put("login_status", true);
+
+        retrofitService.postJWTGetToken(input).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.e("response", response.toString());
+                    Log.e("body", response.raw().body()+"");
+                    Log.e("header", response.headers()+"");
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token",response.headers().get("Authorization"));
+                    editor.apply();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("onFailure",t.getMessage());
+            }
+        });
+    }
+
+    // 토큰 인증
+    void retrofitJWTAuth(){
+        RetrofitService retrofitService = createRetrofit();
+        retrofitService.postJWTAuth(sharedPreferences.getString("token",""))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.e("response", response.toString());
+                        Log.e("body", response.raw().body()+"");
+                        Log.e("header", response.headers()+"");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("onFailure",t.getMessage());
+                    }
+                });
+    }
 
 }
