@@ -26,8 +26,6 @@ import retrofit2.http.Query;
 
 public interface RetrofitService {
 
-    String URL = "http://jsonplaceholder.typicode.com";
-
     String SERVER_URL = "http://115.68.221.104";
 
     /**

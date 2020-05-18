@@ -147,6 +147,7 @@ public class Member {
                 "dark_theme : "+mDarkTheme+"\n" +
                 "push_notice : "+mPushNotice+"\n" +
                 "login_status : "+mLoginStatus+"\n" +
-                "login_type : "+mLoginType+"\n"; }
+                "login_type : "+mLoginType+"\n";
+    }
 
 }

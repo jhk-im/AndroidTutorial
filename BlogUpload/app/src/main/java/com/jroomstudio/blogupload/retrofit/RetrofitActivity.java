@@ -41,7 +41,7 @@ public class RetrofitActivity extends AppCompatActivity {
 
             // jwt
             //retrofitJWTGetToken();
-            retrofitJWTAuth();
+            //retrofitJWTAuth();
 
             // 전송 후 데이터 콜백
             //retrofitPOSTJSONCallback();
